@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,18 +12,26 @@
 
 <style>
   :root {
-    --navy: #0d1b2a;
-    --gold: #c9a84c;
-    --gold-light: #e8cc80;
-    --cream: #f8f4ee;
-    --warm-white: #fdfbf7;
-    --text-dark: #1a1a2e;
-    --text-mid: #4a4a5a;
-    --text-light: #8a8a9a;
+    /* Core palette */
+    --navy:          #0d1b2a;
+    --navy-mid:      #162030;
+    --gold:          #c9a84c;
+    --gold-light:    #e8cc80;
+    --gold-pale:     #f5edd8;
+    --cream:         #f8f4ee;
+    --warm-white:    #fdfbf7;
+    --text-dark:     #1a1a2e;
+    --text-mid:      #4a4a5a;
+    --text-light:    #8a8a9a;
+
+    /* DMS brand accent — used sparingly for energy & identity */
+    --pink:          #e91e8c;
+    --pink-soft:     #f050a8;
+    --pink-pale:     #fdeef7;
+    --pink-glow:     rgba(233, 30, 140, 0.15);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
 
   body {
@@ -37,32 +44,56 @@
   /* ─── NAVIGATION ─── */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    padding: 20px 48px;
+    padding: 0 52px;
+    height: 70px;
     display: flex; justify-content: space-between; align-items: center;
-    background: rgba(13,27,42,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(201,168,76,0.2);
+    background: rgba(13,27,42,0.94);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(201,168,76,0.18);
+  }
+
+  /* Pink hairline under nav — brand identity touch */
+  nav::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0;
+    width: 120px; height: 2px;
+    background: linear-gradient(90deg, var(--pink), transparent);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 14px;
+  }
+
+  .nav-logo img {
+    height: 34px;
+    /* invert logo to white for dark nav */
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
+  }
+
+  .nav-logo-divider {
+    width: 1px; height: 24px;
+    background: rgba(255,255,255,0.15);
   }
 
   .nav-brand {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     font-weight: 400;
     color: var(--gold-light);
-    letter-spacing: 0.04em;
+    letter-spacing: 0.03em;
   }
 
-  .nav-brand span { font-style: italic; color: #fff; }
+  .nav-brand span { font-style: italic; color: rgba(255,255,255,0.75); }
 
   .nav-links {
-    display: flex; gap: 32px; list-style: none;
-    align-items: center;
+    display: flex; gap: 32px; list-style: none; align-items: center;
   }
 
   .nav-links a {
-    color: rgba(255,255,255,0.75);
+    color: rgba(255,255,255,0.65);
     text-decoration: none;
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     font-weight: 400;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -87,7 +118,7 @@
     height: 100vh; min-height: 700px;
     position: relative;
     display: flex; align-items: flex-end;
-    padding-bottom: 80px;
+    padding-bottom: 84px;
   }
 
   .hero-bg {
@@ -102,48 +133,57 @@
     position: absolute; inset: 0;
     background: linear-gradient(
       to bottom,
-      rgba(13,27,42,0.3) 0%,
-      rgba(13,27,42,0.1) 40%,
-      rgba(13,27,42,0.7) 75%,
-      rgba(13,27,42,0.92) 100%
+      rgba(13,27,42,0.25) 0%,
+      rgba(13,27,42,0.08) 35%,
+      rgba(13,27,42,0.65) 72%,
+      rgba(13,27,42,0.93) 100%
     );
+  }
+
+  /* Pink + gold gradient line at bottom of hero */
+  .hero::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--pink) 0%, var(--gold) 50%, transparent 100%);
+    z-index: 3;
   }
 
   .hero-content {
     position: relative; z-index: 2;
-    padding: 0 80px;
-    max-width: 900px;
+    padding: 0 84px;
+    max-width: 920px;
     animation: heroFade 1.2s ease forwards;
   }
 
   @keyframes heroFade {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
   .hero-eyebrow {
     display: inline-flex; align-items: center; gap: 10px;
     color: var(--gold-light);
-    font-size: 0.78rem;
-    font-weight: 500;
+    font-size: 0.76rem;
+    font-weight: 400;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
   }
 
   .hero-eyebrow::before {
     content: '';
-    display: block; width: 32px; height: 1px;
+    display: block; width: 30px; height: 1px;
     background: var(--gold);
   }
 
   .hero h1 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-size: clamp(2.8rem, 6vw, 5.2rem);
     font-weight: 300;
     color: #fff;
     line-height: 1.1;
-    margin-bottom: 24px;
+    margin-bottom: 22px;
   }
 
   .hero h1 em {
@@ -152,25 +192,23 @@
   }
 
   .hero-sub {
-    font-size: 1rem;
-    color: rgba(255,255,255,0.8);
+    font-size: 0.98rem;
+    color: rgba(255,255,255,0.78);
     font-weight: 300;
+    line-height: 1.75;
     max-width: 480px;
-    line-height: 1.7;
     margin-bottom: 36px;
   }
 
-  .hero-actions {
-    display: flex; gap: 16px; flex-wrap: wrap; align-items: center;
-  }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
 
   .btn-primary {
     display: inline-block;
     background: var(--gold);
     color: var(--navy);
     text-decoration: none;
-    padding: 16px 36px;
-    font-size: 0.85rem;
+    padding: 15px 36px;
+    font-size: 0.82rem;
     font-weight: 500;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -180,174 +218,249 @@
   .btn-primary:hover {
     background: var(--gold-light);
     transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(201,168,76,0.3);
+    box-shadow: 0 8px 28px rgba(201,168,76,0.3);
   }
 
-  .btn-secondary {
-    display: inline-flex; align-items: center; gap: 8px;
+  /* Pink CTA variant — used for high-emphasis moments */
+  .btn-pink {
+    display: inline-block;
+    background: var(--pink);
     color: #fff;
     text-decoration: none;
-    font-size: 0.85rem;
-    font-weight: 400;
-    letter-spacing: 0.06em;
-    border-bottom: 1px solid rgba(255,255,255,0.4);
-    padding-bottom: 2px;
-    transition: border-color 0.3s, color 0.3s;
+    padding: 15px 36px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: all 0.3s;
   }
 
-  .btn-secondary:hover { color: var(--gold-light); border-color: var(--gold); }
+  .btn-pink:hover {
+    background: var(--pink-soft);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(233,30,140,0.28);
+  }
+
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    padding-bottom: 2px;
+    transition: color 0.3s, border-color 0.3s;
+  }
+
+  .btn-ghost:hover { color: var(--gold-light); border-color: var(--gold); }
 
   /* ─── RATING STRIP ─── */
   .rating-strip {
     background: var(--navy);
-    padding: 28px 80px;
-    display: flex; gap: 48px; align-items: center;
+    padding: 0 84px;
+    display: flex;
+    border-top: 3px solid transparent;
+    border-image: linear-gradient(90deg, var(--pink), var(--gold), transparent) 1;
     overflow-x: auto;
   }
 
   .rating-item {
-    display: flex; align-items: center; gap: 12px;
+    display: flex; align-items: center; gap: 14px;
+    padding: 28px 0;
+    padding-right: 48px;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    margin-right: 48px;
     white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .rating-item:last-child {
+    border-right: none;
+    margin-right: 0;
+    padding-right: 0;
   }
 
   .rating-num {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
+    font-size: 2.1rem;
     font-weight: 300;
     color: var(--gold-light);
-  }
-
-  .rating-label {
-    font-size: 0.75rem;
-    color: rgba(255,255,255,0.5);
-    line-height: 1.4;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    line-height: 1;
   }
 
   .rating-label strong {
     display: block;
-    color: rgba(255,255,255,0.9);
-    font-weight: 400;
     font-size: 0.82rem;
+    color: rgba(255,255,255,0.85);
+    font-weight: 400;
+    margin-bottom: 2px;
   }
 
-  .rating-divider {
-    width: 1px; height: 40px;
-    background: rgba(255,255,255,0.1);
-    flex-shrink: 0;
+  .rating-label span {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.38);
+    letter-spacing: 0.06em;
   }
 
-  /* ─── SECTIONS SHARED ─── */
-  section { padding: 100px 80px; }
-
-  .section-eyebrow {
+  /* ─── SHARED SECTION STYLES ─── */
+  .eyebrow {
     display: inline-flex; align-items: center; gap: 10px;
     color: var(--gold);
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     font-weight: 500;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     margin-bottom: 16px;
   }
 
-  .section-eyebrow::before {
+  .eyebrow::before {
     content: ''; display: block;
     width: 24px; height: 1px;
     background: var(--gold);
   }
 
+  /* Pink eyebrow variant */
+  .eyebrow-pink {
+    color: var(--pink);
+  }
+
+  .eyebrow-pink::before { background: var(--pink); }
+
   .section-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-size: clamp(1.9rem, 3.2vw, 2.9rem);
     font-weight: 300;
     line-height: 1.2;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
   }
 
   .section-body {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     color: var(--text-mid);
-    line-height: 1.8;
-    max-width: 540px;
+    line-height: 1.82;
+    font-weight: 300;
   }
 
-  /* ─── ABOUT / INTRO ─── */
+  /* ─── ABOUT ─── */
   .about {
     background: var(--cream);
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
+    gap: 0;
   }
 
   .about-images {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 260px 200px;
-    gap: 12px;
+    gap: 4px;
+    background: rgba(0,0,0,0.08);
   }
 
-  .about-img {
-    overflow: hidden;
-  }
+  .about-img { overflow: hidden; }
 
   .about-img img {
     width: 100%; height: 100%;
-    object-fit: cover;
-    display: block;
+    object-fit: cover; display: block;
     transition: transform 0.6s ease;
+    filter: brightness(0.93);
   }
 
-  .about-img:hover img { transform: scale(1.04); }
+  .about-img:hover img { transform: scale(1.04); filter: brightness(1); }
+  .about-img:first-child { grid-column: 1 / 3; }
 
-  .about-img:first-child {
-    grid-column: 1 / 3;
+  .about-text {
+    padding: 72px 64px;
+    display: flex; flex-direction: column; justify-content: center;
+    background: var(--cream);
+  }
+
+  .about-text .section-body { max-width: 440px; }
+
+  /* Pink-accented pull quote inside about */
+  .pull-quote {
+    margin-top: 32px;
+    padding: 18px 22px;
+    border-left: 3px solid var(--pink);
+    background: white;
+  }
+
+  .pull-quote p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--text-dark);
+    line-height: 1.6;
+  }
+
+  .pull-quote cite {
+    display: block;
+    margin-top: 8px;
+    font-size: 0.72rem;
+    font-style: normal;
+    color: var(--pink);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
   }
 
   /* ─── FEATURES ─── */
   .features {
+    padding: 100px 84px;
     background: var(--warm-white);
   }
 
   .features-header {
     display: flex; justify-content: space-between; align-items: flex-end;
-    margin-bottom: 60px;
+    margin-bottom: 56px;
   }
 
   .features-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2px;
-    background: rgba(0,0,0,0.06);
+    background: rgba(0,0,0,0.05);
   }
 
-  .feature-card {
+  .feat-card {
     background: var(--warm-white);
-    padding: 48px 40px;
+    padding: 48px 38px;
+    position: relative;
+    overflow: hidden;
     transition: background 0.3s;
   }
 
-  .feature-card:hover { background: var(--cream); }
+  /* Pink bottom accent line on hover */
+  .feat-card::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0;
+    width: 0; height: 2px;
+    background: linear-gradient(90deg, var(--pink), var(--gold));
+    transition: width 0.4s ease;
+  }
 
-  .feature-icon {
-    width: 48px; height: 48px;
-    margin-bottom: 24px;
+  .feat-card:hover { background: var(--cream); }
+  .feat-card:hover::after { width: 100%; }
+
+  .feat-icon {
+    width: 46px; height: 46px;
+    margin-bottom: 22px;
     color: var(--gold);
   }
 
-  .feature-card h3 {
+  .feat-card h3 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
+    font-size: 1.35rem;
     font-weight: 400;
-    margin-bottom: 12px;
     color: var(--text-dark);
+    margin-bottom: 10px;
   }
 
-  .feature-card p {
-    font-size: 0.88rem;
+  .feat-card p {
+    font-size: 0.86rem;
     color: var(--text-mid);
-    line-height: 1.7;
+    line-height: 1.72;
+    font-weight: 300;
   }
 
   /* ─── LOCATION ─── */
@@ -355,250 +468,423 @@
     background: var(--navy);
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-    color: #fff;
   }
 
-  .location .section-title { color: #fff; }
-  .location .section-body { color: rgba(255,255,255,0.65); max-width: 100%; }
+  .location-text {
+    padding: 80px 72px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
 
-  .location-list {
+  .location-text .section-title { color: #fff; }
+  .location-text .section-body  { color: rgba(255,255,255,0.58); max-width: 100%; }
+
+  .loc-list {
     list-style: none;
     margin-top: 36px;
-    display: flex; flex-direction: column; gap: 16px;
+    display: flex; flex-direction: column; gap: 0;
   }
 
-  .location-list li {
+  .loc-item {
     display: flex; align-items: center; gap: 16px;
-    font-size: 0.9rem;
-    color: rgba(255,255,255,0.8);
-    padding-bottom: 16px;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: padding-left 0.25s;
   }
 
-  .location-list li:last-child { border-bottom: none; }
+  .loc-item:last-child { border-bottom: none; }
+  .loc-item:hover { padding-left: 6px; }
 
-  .loc-icon {
-    width: 36px; height: 36px;
-    background: rgba(201,168,76,0.15);
-    border: 1px solid rgba(201,168,76,0.3);
-    display: flex; align-items: center; justify-content: center;
+  .loc-pip {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--pink);
     flex-shrink: 0;
-    color: var(--gold-light);
-    font-size: 0.9rem;
+    box-shadow: 0 0 8px var(--pink);
   }
 
-  .loc-name { font-weight: 400; color: #fff; }
-  .loc-dist { font-size: 0.8rem; color: rgba(255,255,255,0.45); margin-top: 2px; }
+  .loc-name {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #fff;
+    margin-bottom: 2px;
+  }
+
+  .loc-dist {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.38);
+  }
 
   .location-image {
     position: relative;
-    height: 520px;
+    min-height: 540px;
     overflow: hidden;
   }
 
   .location-image img {
     width: 100%; height: 100%;
-    object-fit: cover;
-    filter: brightness(0.85);
+    object-fit: cover; display: block;
+    filter: brightness(0.75);
+    transition: transform 0.8s ease;
   }
 
-  .location-image::before {
-    content: '';
-    position: absolute; inset: 0; z-index: 1;
-    border: 2px solid rgba(201,168,76,0.3);
-    pointer-events: none;
+  .location-image:hover img { transform: scale(1.04); }
+
+  /* Gold + pink badge over location image */
+  .location-badge {
+    position: absolute; bottom: 36px; left: 36px; z-index: 2;
+    background: var(--navy);
+    border: 1px solid var(--gold);
+    padding: 14px 20px;
+  }
+
+  .location-badge p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--gold-light);
+    margin-bottom: 4px;
+  }
+
+  .location-badge span {
+    font-size: 0.68rem;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
   }
 
   /* ─── GALLERY ─── */
-  .gallery { padding: 100px 80px; background: var(--cream); }
+  .gallery {
+    padding: 100px 84px;
+    background: var(--cream);
+  }
 
-  .gallery-header { margin-bottom: 48px; }
+  .gallery-header { margin-bottom: 44px; }
 
   .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 280px 220px;
-    gap: 10px;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 280px 210px;
+    gap: 6px;
   }
 
-  .gallery-item {
-    overflow: hidden;
-    cursor: pointer;
-  }
+  .g-item { overflow: hidden; }
 
-  .gallery-item img {
+  .g-item img {
     width: 100%; height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.6s ease;
-    filter: brightness(0.95);
+    object-fit: cover; display: block;
+    transition: transform 0.55s ease, filter 0.3s;
+    filter: brightness(0.9);
   }
 
-  .gallery-item:hover img {
-    transform: scale(1.05);
-    filter: brightness(1);
-  }
+  .g-item:hover img { transform: scale(1.05); filter: brightness(1); }
 
-  .gallery-item:nth-child(1) { grid-column: 1 / 3; }
-  .gallery-item:nth-child(4) { grid-column: 4 / 5; grid-row: 1 / 3; }
+  .g-item:nth-child(1) { grid-column: 1 / 6; }
+  .g-item:nth-child(2) { grid-column: 6 / 10; }
+  .g-item:nth-child(3) { grid-column: 10 / 13; }
+  .g-item:nth-child(4) { grid-column: 1 / 5; }
+  .g-item:nth-child(5) { grid-column: 5 / 9; }
+  .g-item:nth-child(6) { grid-column: 9 / 13; }
 
   /* ─── REVIEWS ─── */
-  .reviews { background: var(--warm-white); }
+  .reviews {
+    padding: 100px 84px;
+    background: var(--warm-white);
+  }
 
   .reviews-header {
     display: flex; justify-content: space-between; align-items: flex-end;
-    margin-bottom: 56px;
+    margin-bottom: 20px;
   }
 
-  .review-score {
-    text-align: right;
-  }
+  .score-block { text-align: right; }
 
   .score-big {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 4rem;
+    font-size: 4.2rem;
     font-weight: 300;
     color: var(--navy);
     line-height: 1;
   }
 
-  .score-stars { color: var(--gold); font-size: 1.1rem; letter-spacing: 2px; }
-  .score-label { font-size: 0.78rem; color: var(--text-light); margin-top: 4px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .score-stars { color: var(--gold); font-size: 1rem; letter-spacing: 2px; margin-top: 4px; }
+  .score-count { font-size: 0.74rem; color: var(--text-light); margin-top: 4px; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* Score breakdown bars */
+  .score-bars {
+    display: flex; gap: 28px;
+    margin-bottom: 52px;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    margin-top: 20px;
+  }
+
+  .sbar { flex: 1; min-width: 100px; }
+
+  .sbar-label {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+  }
+
+  .sbar-track {
+    height: 3px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 5px;
+  }
+
+  .sbar-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--pink), var(--gold));
+  }
+
+  .sbar-val {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-dark);
+  }
 
   .reviews-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2px;
-    background: rgba(0,0,0,0.06);
+    background: rgba(0,0,0,0.05);
   }
 
-  .review-card {
+  .r-card {
     background: var(--warm-white);
     padding: 40px 36px;
+    position: relative;
   }
 
-  .review-card blockquote {
+  /* Pink opening quote mark */
+  .r-card::before {
+    content: '\201C';
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.08rem;
+    font-size: 4rem;
+    color: var(--pink);
+    opacity: 0.25;
+    line-height: 1;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .r-card blockquote {
+    font-family: 'Cormorant Garamond', serif;
     font-style: italic;
+    font-size: 1.05rem;
     font-weight: 300;
     color: var(--text-dark);
-    line-height: 1.6;
-    margin-bottom: 20px;
+    line-height: 1.65;
+    margin-bottom: 22px;
   }
 
-  .review-meta {
-    display: flex; align-items: center; gap: 10px;
-  }
+  .r-meta { display: flex; align-items: center; gap: 10px; }
 
-  .review-avatar {
-    width: 36px; height: 36px;
-    background: var(--navy);
+  .r-avatar {
+    width: 34px; height: 34px;
     border-radius: 50%;
+    /* Pink avatar bg — small but memorable */
+    background: linear-gradient(135deg, var(--pink), var(--navy));
     display: flex; align-items: center; justify-content: center;
-    color: var(--gold-light);
-    font-size: 0.75rem;
+    color: #fff;
+    font-size: 0.7rem;
     font-weight: 500;
     flex-shrink: 0;
   }
 
-  .review-name { font-size: 0.82rem; font-weight: 500; color: var(--text-dark); }
-  .review-date { font-size: 0.75rem; color: var(--text-light); }
+  .r-name { font-size: 0.8rem; font-weight: 500; color: var(--text-dark); }
+  .r-type { font-size: 0.72rem; color: var(--text-light); margin-top: 1px; }
+  .r-stars { color: var(--gold); font-size: 0.65rem; letter-spacing: 1px; }
 
-  .review-stars { color: var(--gold); font-size: 0.7rem; letter-spacing: 1px; }
+  .reviews-cta {
+    text-align: center;
+    margin-top: 48px;
+  }
 
-  /* ─── CTA ─── */
+  .reviews-cta a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+    padding-bottom: 2px;
+    transition: color 0.3s, border-color 0.3s;
+  }
+
+  .reviews-cta a:hover { color: var(--pink); border-color: var(--pink); }
+
+  /* ─── BOOK / CTA SECTION ─── */
   .cta-section {
     background: var(--navy);
-    padding: 120px 80px;
-    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cta-left {
+    padding: 96px 72px;
+    display: flex; flex-direction: column; justify-content: center;
     position: relative;
     overflow: hidden;
   }
 
-  .cta-section::before {
+  /* Decorative oversized quote */
+  .cta-left::before {
     content: '"';
     position: absolute;
     font-family: 'Cormorant Garamond', serif;
-    font-size: 40rem;
+    font-size: 36rem;
     color: rgba(255,255,255,0.02);
-    top: -120px; left: -60px;
+    top: -120px; left: -40px;
     line-height: 1;
     pointer-events: none;
   }
 
-  .cta-section .section-eyebrow { justify-content: center; color: var(--gold-light); }
-  .cta-section .section-eyebrow::before { background: var(--gold-light); }
+  .cta-left .eyebrow { color: var(--gold-light); }
+  .cta-left .eyebrow::before { background: var(--gold-light); }
+  .cta-left .section-title { color: #fff; }
 
-  .cta-section h2 {
+  .cta-left .section-title em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .cta-left p {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.8;
+    font-weight: 300;
+    max-width: 380px;
+    margin-top: 12px;
+    margin-bottom: 36px;
+  }
+
+  .cta-right {
+    background: var(--navy-mid);
+    padding: 96px 72px;
+    border-left: 1px solid rgba(255,255,255,0.05);
+    display: flex; flex-direction: column; justify-content: center;
+  }
+
+  /* Pink top border on right panel */
+  .cta-right::before {
+    display: none;
+  }
+
+  .cta-right-inner {
+    border-top: 3px solid var(--pink);
+    padding-top: 32px;
+  }
+
+  .cta-right h3 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-size: 1.6rem;
     font-weight: 300;
     color: #fff;
-    margin-bottom: 16px;
-    line-height: 1.2;
+    margin-bottom: 24px;
   }
 
-  .cta-section h2 em { font-style: italic; color: var(--gold-light); }
-
-  .cta-section p {
-    font-size: 0.95rem;
-    color: rgba(255,255,255,0.6);
-    max-width: 440px;
-    margin: 0 auto 44px;
-    line-height: 1.7;
+  .incl-list {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 12px;
+    margin-bottom: 36px;
   }
+
+  .incl-list li {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.68);
+    font-weight: 300;
+  }
+
+  .incl-list li::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    /* Alternating pink/gold dots */
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .incl-list li:nth-child(even)::before { background: var(--pink); }
 
   .cta-badges {
-    display: flex; justify-content: center; gap: 32px;
-    margin-top: 56px; flex-wrap: wrap;
+    display: flex; gap: 20px; flex-wrap: wrap;
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.06);
   }
 
-  .cta-badge {
-    display: flex; align-items: center; gap: 8px;
-    color: rgba(255,255,255,0.5);
-    font-size: 0.78rem;
+  .badge {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.38);
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 
-  .cta-badge::before {
+  .badge::before {
     content: '✓';
-    color: var(--gold);
-    font-size: 0.85rem;
+    color: var(--pink);
+    font-size: 0.78rem;
   }
 
   /* ─── FOOTER ─── */
   footer {
     background: #070f17;
-    padding: 48px 80px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 24px;
-    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 44px 84px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 24px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    position: relative;
+  }
+
+  /* Pink + gold footer top line */
+  footer::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--pink) 0%, var(--gold) 40%, transparent 100%);
+  }
+
+  .footer-left {
+    display: flex; align-items: center; gap: 14px;
+  }
+
+  .footer-left img {
+    height: 28px;
+    filter: brightness(0) invert(1);
+    opacity: 0.7;
+  }
+
+  .footer-divider {
+    width: 1px; height: 20px;
+    background: rgba(255,255,255,0.12);
   }
 
   .footer-brand {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem;
+    font-size: 1.15rem;
     color: var(--gold-light);
+    opacity: 0.85;
   }
 
   .footer-brand span { font-style: italic; color: rgba(255,255,255,0.5); }
 
   .footer-links {
-    display: flex; gap: 32px; list-style: none;
+    display: flex; gap: 28px; list-style: none;
   }
 
   .footer-links a {
-    color: rgba(255,255,255,0.35);
+    color: rgba(255,255,255,0.28);
     text-decoration: none;
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     transition: color 0.3s;
   }
@@ -606,28 +892,34 @@
   .footer-links a:hover { color: var(--gold-light); }
 
   .footer-copy {
-    color: rgba(255,255,255,0.2);
-    font-size: 0.72rem;
+    font-size: 0.68rem;
+    color: rgba(255,255,255,0.18);
   }
 
   /* ─── RESPONSIVE ─── */
-  @media (max-width: 900px) {
-    nav { padding: 18px 24px; }
+  @media (max-width: 960px) {
+    nav { padding: 0 20px; }
     .nav-links { display: none; }
-    section { padding: 72px 24px; }
     .hero-content { padding: 0 24px; }
-    .rating-strip { padding: 20px 24px; gap: 28px; }
-    .about { grid-template-columns: 1fr; gap: 40px; }
-    .features-grid { grid-template-columns: 1fr; }
+    .rating-strip { padding: 0 24px; }
+    .about { grid-template-columns: 1fr; }
+    .about-text { padding: 48px 28px; }
+    .features { padding: 64px 24px; }
     .features-header { flex-direction: column; align-items: flex-start; gap: 20px; }
-    .location { grid-template-columns: 1fr; gap: 40px; }
-    .location-image { height: 300px; }
+    .features-grid { grid-template-columns: 1fr; }
+    .location { grid-template-columns: 1fr; }
+    .location-text { padding: 56px 28px; }
+    .location-image { min-height: 320px; }
+    .gallery { padding: 64px 24px; }
     .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
-    .gallery-item:nth-child(1) { grid-column: 1 / 3; }
-    .gallery-item:nth-child(4) { grid-column: auto; grid-row: auto; }
+    .g-item { grid-column: auto !important; height: 210px; }
+    .reviews { padding: 64px 24px; }
+    .reviews-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .score-block { text-align: left; }
     .reviews-grid { grid-template-columns: 1fr; }
-    .reviews-header { flex-direction: column; align-items: flex-start; gap: 20px; }
-    .cta-section { padding: 80px 24px; }
+    .cta-section { grid-template-columns: 1fr; }
+    .cta-left { padding: 64px 28px; }
+    .cta-right { padding: 48px 28px; }
     footer { padding: 36px 24px; flex-direction: column; align-items: flex-start; }
     .footer-links { flex-wrap: wrap; gap: 16px; }
   }
@@ -637,7 +929,11 @@
 
 <!-- NAVIGATION -->
 <nav>
-  <div class="nav-brand">Be Our <span>Guest</span></div>
+  <div class="nav-logo">
+    <img src="DMS_Logo_White.png" alt="DMS Real Estate">
+    <div class="nav-logo-divider"></div>
+    <div class="nav-brand">Be Our <span>Guest</span></div>
+  </div>
   <ul class="nav-links">
     <li><a href="#about">The Property</a></li>
     <li><a href="#features">Amenities</a></li>
@@ -653,10 +949,10 @@
   <div class="hero-content">
     <div class="hero-eyebrow">Birmingham Airport · NEC · HS2 · Resorts World</div>
     <h1>Stay where <em>comfort</em><br>meets convenience</h1>
-    <p class="hero-sub">A professionally maintained 2-bedroom home, perfectly placed for business travellers, contractors and airport stays in the West Midlands.</p>
+    <p class="hero-sub">A professionally managed 2-bedroom home in Solihull's B37 — perfectly positioned for business travellers, contractors and airport stays in the West Midlands.</p>
     <div class="hero-actions">
       <a href="https://www.airbnb.co.uk/rooms/769366990911385201" target="_blank" class="btn-primary">Check Availability</a>
-      <a href="#about" class="btn-secondary">Discover the property ↓</a>
+      <a href="#about" class="btn-ghost">Discover the property ↓</a>
     </div>
   </div>
 </section>
@@ -665,27 +961,23 @@
 <div class="rating-strip">
   <div class="rating-item">
     <div class="rating-num">4.77</div>
-    <div class="rating-label"><strong>Overall Rating</strong>83 guest reviews</div>
+    <div class="rating-label"><strong>Overall Rating</strong><span>83 verified reviews</span></div>
   </div>
-  <div class="rating-divider"></div>
   <div class="rating-item">
     <div class="rating-num">4.9</div>
-    <div class="rating-label"><strong>Cleanliness</strong>Consistently spotless</div>
+    <div class="rating-label"><strong>Cleanliness</strong><span>Consistently spotless</span></div>
   </div>
-  <div class="rating-divider"></div>
   <div class="rating-item">
     <div class="rating-num">4.9</div>
-    <div class="rating-label"><strong>Check-in</strong>Smooth & seamless</div>
+    <div class="rating-label"><strong>Check-in</strong><span>Smooth &amp; seamless</span></div>
   </div>
-  <div class="rating-divider"></div>
   <div class="rating-item">
     <div class="rating-num">4.9</div>
-    <div class="rating-label"><strong>Accuracy</strong>Exactly as described</div>
+    <div class="rating-label"><strong>Accuracy</strong><span>Exactly as described</span></div>
   </div>
-  <div class="rating-divider"></div>
   <div class="rating-item">
     <div class="rating-num">4.8</div>
-    <div class="rating-label"><strong>Value</strong>Rated by guests</div>
+    <div class="rating-label"><strong>Value</strong><span>Rated by guests</span></div>
   </div>
 </div>
 
@@ -693,21 +985,24 @@
 <section class="about" id="about">
   <div class="about-images">
     <div class="about-img">
-      <img src="https://a0.muscache.com/im/pictures/miso/Hosting-769366990911385201/original/03c2cbf0-8138-4372-a38f-f0321d83bef4.jpeg?im_w=720" alt="Be Our Guest - Living Space">
+      <img src="https://a0.muscache.com/im/pictures/miso/Hosting-769366990911385201/original/03c2cbf0-8138-4372-a38f-f0321d83bef4.jpeg?im_w=720" alt="Living space">
     </div>
     <div class="about-img">
-      <img src="https://a0.muscache.com/im/pictures/miso/Hosting-769366990911385201/original/caa09157-4a38-4f01-9a34-124ba9b1b113.jpeg?im_w=720" alt="Be Our Guest - Bedroom">
+      <img src="https://a0.muscache.com/im/pictures/miso/Hosting-769366990911385201/original/caa09157-4a38-4f01-9a34-124ba9b1b113.jpeg?im_w=720" alt="Bedroom">
     </div>
     <div class="about-img">
-      <img src="https://a0.muscache.com/im/pictures/miso/Hosting-769366990911385201/original/e563f82f-3c11-454b-8982-405ea96c7825.jpeg?im_w=720" alt="Be Our Guest - Kitchen">
+      <img src="https://a0.muscache.com/im/pictures/miso/Hosting-769366990911385201/original/e563f82f-3c11-454b-8982-405ea96c7825.jpeg?im_w=720" alt="Kitchen">
     </div>
   </div>
-  <div>
-    <div class="section-eyebrow">The Property</div>
-    <h2 class="section-title">A home designed for the way you work and travel</h2>
-    <p class="section-body">Be Our Guest is a spacious, thoughtfully equipped 2-bedroom home in the heart of Solihull's B37 — within minutes of Birmingham Airport, the NEC, Resorts World and the HS2 interchange.</p>
-    <p class="section-body" style="margin-top:16px;">Whether you're on a project placement, attending an exhibition or catching an early flight, you'll find everything you need: fast WiFi, free parking, a fully-equipped kitchen and the quiet of a residential neighbourhood.</p>
-    <p class="section-body" style="margin-top:16px; font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: #555;">Professionally managed. Privately owned. Always immaculate.</p>
+  <div class="about-text">
+    <div class="eyebrow">The Property</div>
+    <h2 class="section-title">A home built for the way you work and travel</h2>
+    <p class="section-body">Be Our Guest is a spacious, thoughtfully equipped 2-bedroom home in Solihull's B37 — within minutes of Birmingham Airport, the NEC, Resorts World and the HS2 interchange.</p>
+    <p class="section-body" style="margin-top: 14px;">Whether you're on a project placement, attending an exhibition or catching an early flight, you'll find everything you need — fast WiFi, free parking, a fully-equipped kitchen and the quiet of a residential neighbourhood.</p>
+    <div class="pull-quote">
+      <p>"Professionally managed. Privately owned. Always immaculate."</p>
+      <cite>Be Our Guest · DMS Real Estate Ltd</cite>
+    </div>
   </div>
 </section>
 
@@ -715,134 +1010,108 @@
 <section class="features" id="features">
   <div class="features-header">
     <div>
-      <div class="section-eyebrow">Amenities</div>
+      <div class="eyebrow">Amenities</div>
       <h2 class="section-title">Everything you need.<br>Nothing you don't.</h2>
     </div>
-    <a href="https://www.airbnb.co.uk/rooms/769366990911385201" target="_blank" class="btn-primary" style="text-decoration:none;">View Full Listing</a>
+    <a href="https://www.airbnb.co.uk/rooms/769366990911385201" target="_blank" class="btn-primary" style="text-decoration:none; white-space:nowrap;">View Full Listing</a>
   </div>
   <div class="features-grid">
-    <div class="feature-card">
-      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <div class="feat-card">
+      <svg class="feat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
         <path d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z"/>
       </svg>
       <h3>Fast WiFi</h3>
-      <p>High-speed broadband throughout the property — reliable for video calls, remote work and streaming.</p>
+      <p>High-speed broadband throughout — reliable for video calls, remote working and streaming around the clock.</p>
     </div>
-    <div class="feature-card">
-      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <div class="feat-card">
+      <svg class="feat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
         <path d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/>
       </svg>
       <h3>Free Parking</h3>
-      <p>Dedicated free parking on premises — no fees, no permits, no stress after a long journey.</p>
+      <p>Dedicated free parking on premises — no fees, no permits, no stress after a long journey or late arrival.</p>
     </div>
-    <div class="feature-card">
-      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <div class="feat-card">
+      <svg class="feat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
         <path d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z"/>
       </svg>
       <h3>Self Check-In</h3>
-      <p>Arrive on your schedule via secure lockbox — no waiting, no coordinating, total flexibility.</p>
+      <p>Arrive on your schedule via secure lockbox. No waiting, no coordinating — total flexibility from the moment you land.</p>
     </div>
-    <div class="feature-card">
-      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <div class="feat-card">
+      <svg class="feat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
         <path d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M12 12.75h.008v.008H12v-.008z"/>
       </svg>
       <h3>Dedicated Workspace</h3>
-      <p>A quiet, well-lit workspace — ideal for contractors and professionals on extended placements.</p>
+      <p>A quiet, well-lit work area with fast WiFi — ideal for contractors and professionals on extended placements.</p>
     </div>
-    <div class="feature-card">
-      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <div class="feat-card">
+      <svg class="feat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
         <path d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/>
       </svg>
       <h3>Entire Home</h3>
-      <p>Both bedrooms, bathroom, kitchen, living area — fully private. The home is never shared with other guests.</p>
+      <p>Both bedrooms, bathroom, kitchen and living area — fully private. The home is never shared with other guests.</p>
     </div>
-    <div class="feature-card">
-      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <div class="feat-card">
+      <svg class="feat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
         <path d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1 1 .03 2.798-1.414 2.798H4.212c-1.444 0-2.414-1.798-1.414-2.798L4.5 15.3"/>
       </svg>
       <h3>Fully Equipped Kitchen</h3>
-      <p>Everything needed for short or extended stays — fridge, oven, microwave, cookware and full utensils.</p>
+      <p>Fridge, oven, microwave, cookware and full utensils — everything needed for short breaks or extended stays.</p>
     </div>
   </div>
 </section>
 
 <!-- LOCATION -->
 <section class="location" id="location">
-  <div>
-    <div class="section-eyebrow" style="color:var(--gold-light);">Location</div>
+  <div class="location-text">
+    <div class="eyebrow">Location</div>
     <h2 class="section-title">At the centre of the Midlands' most connected corridor</h2>
-    <p class="section-body">B37 places you in the heart of it all — minutes from the region's key business, transport and events destinations.</p>
-    <ul class="location-list">
-      <li>
-        <div class="loc-icon">✈</div>
-        <div>
-          <div class="loc-name">Birmingham Airport</div>
-          <div class="loc-dist">5 min drive · Perfect for early departures & arrivals</div>
-        </div>
+    <p class="section-body">B37 Solihull places you within minutes of the region's key business, transport and events destinations — without the airport hotel price tag.</p>
+    <ul class="loc-list">
+      <li class="loc-item">
+        <div class="loc-pip"></div>
+        <div><div class="loc-name">✈ Birmingham Airport</div><div class="loc-dist">~5 min drive · Perfect for early departures &amp; late arrivals</div></div>
       </li>
-      <li>
-        <div class="loc-icon">🏢</div>
-        <div>
-          <div class="loc-name">NEC Birmingham</div>
-          <div class="loc-dist">7 min drive · Exhibitions, conferences & trade shows</div>
-        </div>
+      <li class="loc-item">
+        <div class="loc-pip"></div>
+        <div><div class="loc-name">🏢 NEC Birmingham</div><div class="loc-dist">~7 min drive · Exhibitions, conferences &amp; trade shows</div></div>
       </li>
-      <li>
-        <div class="loc-icon">🎰</div>
-        <div>
-          <div class="loc-name">Resorts World</div>
-          <div class="loc-dist">5 min drive · Entertainment, dining & leisure</div>
-        </div>
+      <li class="loc-item">
+        <div class="loc-pip"></div>
+        <div><div class="loc-name">🎰 Resorts World</div><div class="loc-dist">~5 min drive · Entertainment, dining &amp; leisure</div></div>
       </li>
-      <li>
-        <div class="loc-icon">🚆</div>
-        <div>
-          <div class="loc-name">HS2 Interchange</div>
-          <div class="loc-dist">Immediate vicinity · Ideal for HS2 contractors & workforce</div>
-        </div>
+      <li class="loc-item">
+        <div class="loc-pip"></div>
+        <div><div class="loc-name">🚆 HS2 Interchange</div><div class="loc-dist">Immediate vicinity · Ideal for HS2 contractors &amp; workforce</div></div>
       </li>
-      <li>
-        <div class="loc-icon">🛣</div>
-        <div>
-          <div class="loc-name">M6 / M42</div>
-          <div class="loc-dist">Direct access · Central motorway network</div>
-        </div>
+      <li class="loc-item">
+        <div class="loc-pip"></div>
+        <div><div class="loc-name">🛣 M6 / M42</div><div class="loc-dist">Direct access · Central Midlands motorway network</div></div>
       </li>
     </ul>
   </div>
   <div class="location-image">
-    <img src="https://a0.muscache.com/im/pictures/miso/Hosting-769366990911385201/original/112d7947-d70e-49fc-8e66-3e5e6169e0c0.jpeg?im_w=720" alt="Be Our Guest exterior">
+    <img src="https://a0.muscache.com/im/pictures/miso/Hosting-769366990911385201/original/112d7947-d70e-49fc-8e66-3e5e6169e0c0.jpeg?im_w=720" alt="Property exterior">
+    <div class="location-badge">
+      <p>B37 · Solihull</p>
+      <span>West Midlands, England</span>
+    </div>
   </div>
 </section>
 
 <!-- GALLERY -->
 <section class="gallery" id="gallery">
   <div class="gallery-header">
-    <div class="section-eyebrow">Inside the Property</div>
-    <h2 class="section-title">Clean. Comfortable. <em style="font-family:'Cormorant Garamond',serif; font-style:italic;">Always ready.</em></h2>
+    <div class="eyebrow">Inside the Property</div>
+    <h2 class="section-title">Clean. Comfortable. <em style="font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--text-mid);">Always ready.</em></h2>
   </div>
   <div class="gallery-grid">
-    <div class="gallery-item">
-      <img src="https://a0.muscache.com/im/pictures/miso/Hosting-769366990911385201/original/250cbe56-2f05-413d-8a78-67801b78562c.jpeg?im_w=720" alt="Bedroom 1">
-    </div>
-    <div class="gallery-item">
-      <img src="https://a0.muscache.com/im/pictures/miso/Hosting-769366990911385201/original/caa09157-4a38-4f01-9a34-124ba9b1b113.jpeg?im_w=720" alt="Bedroom 2">
-    </div>
-    <div class="gallery-item">
-      <img src="https://a0.muscache.com/im/pictures/miso/Hosting-769366990911385201/original/03c2cbf0-8138-4372-a38f-f0321d83bef4.jpeg?im_w=720" alt="Living Area">
-    </div>
-    <div class="gallery-item">
-      <img src="https://a0.muscache.com/im/pictures/miso/Hosting-769366990911385201/original/e563f82f-3c11-454b-8982-405ea96c7825.jpeg?im_w=720" alt="Kitchen">
-    </div>
-    <div class="gallery-item">
-      <img src="https://a0.muscache.com/im/pictures/miso/Hosting-769366990911385201/original/c1923e51-6e20-4d2e-941a-2a2b9e04b721.jpeg?im_w=720" alt="Second bedroom">
-    </div>
-    <div class="gallery-item">
-      <img src="https://a0.muscache.com/im/pictures/miso/Hosting-769366990911385201/original/250cbe56-2f05-413d-8a78-67801b78562c.jpeg?im_w=720" alt="Property">
-    </div>
-    <div class="gallery-item">
-      <img src="https://a0.muscache.com/im/pictures/miso/Hosting-769366990911385201/original/112d7947-d70e-49fc-8e66-3e5e6169e0c0.jpeg?im_w=720" alt="Exterior">
-    </div>
+    <div class="g-item"><img src="https://a0.muscache.com/im/pictures/miso/Hosting-769366990911385201/original/250cbe56-2f05-413d-8a78-67801b78562c.jpeg?im_w=720" alt="Bedroom 1"></div>
+    <div class="g-item"><img src="https://a0.muscache.com/im/pictures/miso/Hosting-769366990911385201/original/caa09157-4a38-4f01-9a34-124ba9b1b113.jpeg?im_w=720" alt="Bedroom 2"></div>
+    <div class="g-item"><img src="https://a0.muscache.com/im/pictures/miso/Hosting-769366990911385201/original/03c2cbf0-8138-4372-a38f-f0321d83bef4.jpeg?im_w=720" alt="Living area"></div>
+    <div class="g-item"><img src="https://a0.muscache.com/im/pictures/miso/Hosting-769366990911385201/original/e563f82f-3c11-454b-8982-405ea96c7825.jpeg?im_w=720" alt="Kitchen"></div>
+    <div class="g-item"><img src="https://a0.muscache.com/im/pictures/miso/Hosting-769366990911385201/original/c1923e51-6e20-4d2e-941a-2a2b9e04b721.jpeg?im_w=720" alt="Second bedroom"></div>
+    <div class="g-item"><img src="https://a0.muscache.com/im/pictures/miso/Hosting-769366990911385201/original/112d7947-d70e-49fc-8e66-3e5e6169e0c0.jpeg?im_w=720" alt="Exterior"></div>
   </div>
 </section>
 
@@ -850,71 +1119,122 @@
 <section class="reviews" id="reviews">
   <div class="reviews-header">
     <div>
-      <div class="section-eyebrow">Guest Reviews</div>
+      <div class="eyebrow">Guest Reviews</div>
       <h2 class="section-title">Trusted by over<br>80 verified guests</h2>
     </div>
-    <div class="review-score">
+    <div class="score-block">
       <div class="score-big">4.77</div>
       <div class="score-stars">★★★★★</div>
-      <div class="score-label">83 reviews on Airbnb</div>
+      <div class="score-count">83 reviews · Airbnb</div>
+    </div>
+  </div>
+  <div class="score-bars">
+    <div class="sbar">
+      <div class="sbar-label">Cleanliness</div>
+      <div class="sbar-track"><div class="sbar-fill" style="width:98%"></div></div>
+      <div class="sbar-val">4.9</div>
+    </div>
+    <div class="sbar">
+      <div class="sbar-label">Check-in</div>
+      <div class="sbar-track"><div class="sbar-fill" style="width:98%"></div></div>
+      <div class="sbar-val">4.9</div>
+    </div>
+    <div class="sbar">
+      <div class="sbar-label">Accuracy</div>
+      <div class="sbar-track"><div class="sbar-fill" style="width:98%"></div></div>
+      <div class="sbar-val">4.9</div>
+    </div>
+    <div class="sbar">
+      <div class="sbar-label">Communication</div>
+      <div class="sbar-track"><div class="sbar-fill" style="width:96%"></div></div>
+      <div class="sbar-val">4.8</div>
+    </div>
+    <div class="sbar">
+      <div class="sbar-label">Value</div>
+      <div class="sbar-track"><div class="sbar-fill" style="width:96%"></div></div>
+      <div class="sbar-val">4.8</div>
     </div>
   </div>
   <div class="reviews-grid">
-    <div class="review-card">
+    <div class="r-card">
       <blockquote>"Perfect location for the NEC — exactly as described and immaculately clean. Would book again without hesitation."</blockquote>
-      <div class="review-meta">
-        <div class="review-avatar">JM</div>
+      <div class="r-meta">
+        <div class="r-avatar">JM</div>
         <div>
-          <div class="review-name">Business Traveller</div>
-          <div class="review-stars">★★★★★</div>
+          <div class="r-name">NEC Exhibition Guest</div>
+          <div class="r-type">Business traveller</div>
+          <div class="r-stars">★★★★★</div>
         </div>
       </div>
     </div>
-    <div class="review-card">
-      <blockquote>"Ideal base for our airport stay. Self check-in was seamless, parking was great and the property was spotless."</blockquote>
-      <div class="review-meta">
-        <div class="review-avatar">SR</div>
+    <div class="r-card">
+      <blockquote>"Ideal base for our airport stay. Self check-in was seamless, parking was great and the property was spotless throughout."</blockquote>
+      <div class="r-meta">
+        <div class="r-avatar">SR</div>
         <div>
-          <div class="review-name">Airport Stopover Guest</div>
-          <div class="review-stars">★★★★★</div>
+          <div class="r-name">Airport Stopover Guest</div>
+          <div class="r-type">Short stay</div>
+          <div class="r-stars">★★★★★</div>
         </div>
       </div>
     </div>
-    <div class="review-card">
-      <blockquote>"Excellent for a contractor stay. Quiet area, fast WiFi and everything you need for a working week away from home."</blockquote>
-      <div class="review-meta">
-        <div class="review-avatar">TK</div>
+    <div class="r-card">
+      <blockquote>"Excellent for a contractor placement. Quiet area, fast WiFi and everything you need for a working week away from home."</blockquote>
+      <div class="r-meta">
+        <div class="r-avatar">TK</div>
         <div>
-          <div class="review-name">Contractor, Extended Stay</div>
-          <div class="review-stars">★★★★★</div>
+          <div class="r-name">Contractor, Extended Stay</div>
+          <div class="r-type">Working placement</div>
+          <div class="r-stars">★★★★★</div>
         </div>
       </div>
     </div>
   </div>
-  <div style="text-align:center; margin-top:48px;">
-    <a href="https://www.airbnb.co.uk/rooms/769366990911385201#reviews" target="_blank" class="btn-secondary" style="color:var(--text-mid); border-color:rgba(0,0,0,0.2);">Read all 83 reviews on Airbnb →</a>
+  <div class="reviews-cta">
+    <a href="https://www.airbnb.co.uk/rooms/769366990911385201#reviews" target="_blank">Read all 83 reviews on Airbnb →</a>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta-section">
-  <div class="section-eyebrow">Ready to book?</div>
-  <h2>Your next stay,<br><em>sorted in seconds</em></h2>
-  <p>Available for short stays, working weeks and extended placements. Check live availability and book securely via Airbnb.</p>
-  <a href="https://www.airbnb.co.uk/rooms/769366990911385201" target="_blank" class="btn-primary">Check Availability on Airbnb</a>
-  <div class="cta-badges">
-    <span class="cta-badge">Free Parking</span>
-    <span class="cta-badge">Self Check-In</span>
-    <span class="cta-badge">Fast WiFi</span>
-    <span class="cta-badge">Entire Home</span>
-    <span class="cta-badge">Pets Welcome</span>
-    <span class="cta-badge">Professional Management</span>
+<!-- CTA / BOOK -->
+<section class="cta-section" id="book">
+  <div class="cta-left">
+    <div class="eyebrow">Ready to book?</div>
+    <h2 class="section-title">Your next stay,<br><em>sorted in seconds</em></h2>
+    <p>Available for short breaks, working weeks and extended contractor placements. Check live availability and book securely via Airbnb.</p>
+    <a href="https://www.airbnb.co.uk/rooms/769366990911385201" target="_blank" class="btn-pink">Check Availability on Airbnb</a>
+    <div class="cta-badges">
+      <span class="badge">Free Parking</span>
+      <span class="badge">Self Check-In</span>
+      <span class="badge">Fast WiFi</span>
+      <span class="badge">Entire Home</span>
+      <span class="badge">Pets Welcome</span>
+    </div>
+  </div>
+  <div class="cta-right">
+    <div class="cta-right-inner">
+      <h3>What's included in every stay</h3>
+      <ul class="incl-list">
+        <li>Entire 2-bedroom home — private, never shared</li>
+        <li>Free on-site parking, always included</li>
+        <li>Fast WiFi &amp; dedicated workspace</li>
+        <li>Fully equipped kitchen for any length of stay</li>
+        <li>Self check-in — arrive whenever you need to</li>
+        <li>Professionally cleaned between every guest</li>
+        <li>Pets welcome on request</li>
+        <li>4.77 ★ rated across 83 Airbnb reviews</li>
+      </ul>
+      <a href="https://www.airbnb.co.uk/rooms/769366990911385201" target="_blank" class="btn-primary" style="text-decoration:none; display:inline-block;">Book via Airbnb</a>
+    </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-brand">Be Our <span>Guest</span> &nbsp;|&nbsp; <span style="font-size:0.8rem; letter-spacing:0.05em;">DMS Real Estate Ltd</span></div>
+  <div class="footer-left">
+    <img src="DMS_Logo_White.png" alt="DMS Real Estate">
+    <div class="footer-divider"></div>
+    <div class="footer-brand">Be Our <span>Guest</span></div>
+  </div>
   <ul class="footer-links">
     <li><a href="#about">The Property</a></li>
     <li><a href="#features">Amenities</a></li>
@@ -922,7 +1242,7 @@
     <li><a href="#reviews">Reviews</a></li>
     <li><a href="https://www.airbnb.co.uk/rooms/769366990911385201" target="_blank">Book on Airbnb</a></li>
   </ul>
-  <div class="footer-copy">© 2026 DMS Real Estate Ltd · Birmingham, West Midlands</div>
+  <div class="footer-copy">© 2026 DMS Real Estate Ltd · 124 City Road, London, EC1V 2NX</div>
 </footer>
 
 </body>
